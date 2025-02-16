@@ -19,6 +19,8 @@
     font-style: normal;
 }
 
+
+
 @font-face {
     font-family: 'Rubik-BoldItalic';
     src: url('Rubik/Rubik-BoldItalic.ttf') format('truetype');
@@ -26,12 +28,7 @@
     font-style: italic;
 }
 
-@font-face {
-    font-family: 'Rubik-ExtraBold';
-    src: url('Rubik/Rubik-ExtraBold.ttf') format('truetype');
-    font-weight: 800;
-    font-style: normal;
-}
+
 
 @font-face {
     font-family: 'Rubik-ExtraBoldItalic';
@@ -86,6 +83,13 @@
     font-family: 'Rubik-SemiBold';
     src: url('Rubik/Rubik-SemiBold.ttf') format('truetype');
     font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Rubik-ExtraBold';
+    src: url('Rubik/Rubik-ExtraBold.ttf') format('truetype');
+    font-weight: 800;
     font-style: normal;
 }
 
