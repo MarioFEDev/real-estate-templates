@@ -204,7 +204,6 @@
             transform: translateY(90px);
             transition: opacity 0.8s ease-out, transform 0.8s ease-out;
             background: linear-gradient(45deg, #ffffff, #f2f2f2, #e6e6e6, #d9d9d9, #cccccc);
-
         }
         .listing-in{
             opacity: 1;
@@ -224,14 +223,20 @@
             margin-top: 20px ;
             margin-bottom: 0pt;
             font-size: 20pt;
+            padding-left: .5em;
         }
         .location{
             margin-bottom: 20px;
+            padding-left: .5em;
         }
         .price{
             font-size: 17pt;
             font-family: poppins-semibold;
             margin-bottom: 10px;
+            padding-left: .5em;
+        }
+        .list-info{
+            padding-left: .5em;
         }
         .list-info,
         .list-info > em{
@@ -261,6 +266,7 @@
             padding: .7em 2em;
             border: 2px solid black;
             background-color: transparent;
+            margin-left: .5em;
         }
 
 
@@ -545,7 +551,7 @@
             margin-top: 50px ;
             height: 350px;
             min-height: fit-content;
-            background-image:url(consecback.jpg) ;
+            background-image:url(consecback.webp) ;
             background-size: cover;
             background-position: center;
             display: flex;
@@ -761,11 +767,11 @@
                     <a href="index.html"><li>Home</li></a>
                     <a><li>Listings</li></a>
                     <a href="reviews.html"><li>Reviews</li></a>
-                    <a><li>Contacts</li></a>
+                    <a href="contact.html"><li>Contacts</li></a>
                 </ul>
             </div>
         </div>
-        <a><button class="schedule bt1">Schedule A Showing</button></a>
+        <a href="contact.html"><button class="schedule bt1">Schedule A Showing</button></a>
         <input type="text" class="listing-search none" id="listing-search" placeholder="Search Listings (Locations, Building Types...) ">
         
         <div class="mob-menu-toggle" onclick="toggleMenu(menuStatus)">
@@ -783,8 +789,8 @@
             <a href="index.html"><div class="">Home</div></a>
             <a><div class="">Listings</div></a>
             <a href="reviews.html"><div class="">Reviews</div></a>
-            <a><div class="">Contact</div></a>
-            <a><div class="">Schedule a Showing</div></a>
+            <a href="contact.html"><div class="">Contact</div></a>
+            <a href="contact.html"><div class="">Schedule a Showing</div></a>
         </div>
     </div>
 
@@ -1980,7 +1986,7 @@
                     At MB Real Estate, our top priority is delivering a VIP experience while helping you find your dream home. If you don’t see what you’re looking for in our listings or have a specific area in mind, connect with one of our real estate experts. We’re here to answer all your questions and guide you every step of the way!
                 </p>
             </div>
-            <button class="con-btn bt1"> Contact Us!</button>
+            <button class="con-btn bt1" onclick="toContact()"> Contact Us!</button>
         </div>
     </section>
 
@@ -2036,6 +2042,8 @@
     <script src="def.js"></script> 
     <script>
 
+        
+            
         
 
 

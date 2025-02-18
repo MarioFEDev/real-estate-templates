@@ -109,10 +109,12 @@
         }
         @keyframes img-in{
             0%{
-                transform: translateX(110%);
+                transform: translateX(80%);
+                opacity: 0;
             }
             100%{
-                transform: translateX(0);            
+                transform: translateX(0);    
+                opacity: 1;        
             }
         }
         @keyframes intro-txt-fade {
@@ -156,6 +158,7 @@
         body{
             overflow-x: hidden;
             position: relative;
+            padding-top: var(--header-height);
         }
         header{
             width: 100%;
@@ -230,19 +233,19 @@
             box-sizing: content-box;
             transform: translateY(40px);
             opacity: 0;
-            animation: menu-items .7s linear forwards;
+            animation: menu-items .5s ease-in forwards;
         }
         .menu a:nth-child(1) li{
-            animation-delay:2.3s ;
+            animation-delay:2s ;
         }
         .menu a:nth-child(2) li{
-            animation-delay:2.6s ;
+            animation-delay:2.3s ;
         }
         .menu a:nth-child(3) li{
-            animation-delay:2.9s ;
+            animation-delay:2.6s ;
         }
         .menu a:nth-child(4) li{
-            animation-delay:3.1s ;
+            animation-delay:2.9s ;
         }
         .menu a li::after{
             position: absolute;
@@ -300,6 +303,7 @@
         .mob-menu a{
             display: flex;
             justify-content: center;
+            color: white;
         }
         .mob-menu a > div,
         .mob-menu-close{
@@ -336,7 +340,6 @@
 
 
         .intro{
-            margin-top: 100px;
             height: 580px;
             position: relative;
             overflow: hidden;
@@ -389,7 +392,7 @@
             width: 100%;
             height: fit-content;
             position: relative;
-            background-image: url(flback.jpg);
+            background-image: url(flback.webp);
             background-size: cover;
             background-position: center;
             color: white;
@@ -439,6 +442,9 @@
         .listing{
             background-color: white;
             padding: 1em;
+            transform: translateY(70px);
+            opacity: 0;
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
         }
         .list-img{
             width: 100%;
@@ -466,6 +472,17 @@
             background: #544135;
             color: white;
         }
+        .all-listings{
+            transition: opacity 0.5s ease-out, transform 0.8s ease-out; 
+        }
+        .al2{
+            opacity: 0;
+            transform: translateY(50px);
+        }
+        .listing-in{
+            opacity: 1;
+            transform: translateY(0);
+        }
 
         .testimonials{
             display: flex;
@@ -486,10 +503,21 @@
             font-size: 40pt;
             display: flex;
             align-items: center;
+            transform: translateX(-70px);
+            opacity: 0;transition: opacity 0.6s ease-out, transform 1s ease-out;
+        }
+        .tcon{
+            transform: translateY(110px);
+            opacity: 0;
+            transition: opacity 0.6s ease-out, transform 1s ease-out;
         }
         .test{
             font-family: poppins-regular;
             margin-bottom:25px;
+            
+        }
+        .test2{
+            transition:transform 1.2s ease-out;
         }
         .test::before{
             content: open-quote;
@@ -513,6 +541,17 @@
             padding: .9em 1.3em;
             font-size: 12pt;
             margin-top: 10px;
+            transform: translateY(30px);
+            opacity: 0;
+        }
+        @keyframes rev-btn-in {
+            to{
+                opacity: 1;
+                transform: translate(0);
+            }
+        }
+        .rdef{
+            animation: rev-btn-in .7s linear forwards;
         }
 
 
@@ -521,7 +560,7 @@
             margin-top: 50px ;
             height: 350px;
             min-height: fit-content;
-            background-image:url(consecback.jpg) ;
+            background-image:url(consecback.webp) ;
             background-size: cover;
             background-position: center;
             display: flex;
@@ -557,14 +596,23 @@
         .con-ttl{
             font-size: 30pt;
             translate: 0 -20px;
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: opacity 0.6s ease-out, transform .8s ease-out;
         }
         .con-p{
             font-size: 12pt;
             font-family: poppins-regular;
+            opacity: 0;
+            transform: translateY(60px);
+            transition: opacity 0.6s ease-out, transform .8s ease-out;
         }
         .con-btn{
             padding: 1em 3em;
             font-size: 14pt;
+            opacity: 0;
+            transform: translateX(60px);
+            transition: opacity 0.6s ease-out, transform .8s ease-out;
         }
 
         footer{
@@ -599,7 +647,10 @@
         .dis{
             font-family: poppins-light; 
         }
-
+        .tdef{
+            opacity: 1;
+            transform: translate(0);
+        }
         .lock-scroll {
             position: fixed;
             width: 100%;
@@ -751,8 +802,12 @@
                 display: none;
             }
             .intro{
-                height: 590px;
-                margin-top: 100px;
+                height :430px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                margin-top: 8px;
+                
             }
             .mob-menu-toggle{
                 display: block;
@@ -795,11 +850,11 @@
                     <a><li>Home</li></a>
                     <a href="listings.html"><li >Listings</li></a>
                     <a href="reviews.html"><li>Reviews</li></a>
-                    <a><li>Contacts</li></a>
+                    <a href="contact.html"><li>Contacts</li></a>
                 </ul>
             </div>
         </div>
-        <a><button class="schedule bt1">Schedule A Showing</button></a>
+        <a href="contact.html"><button class="schedule bt1">Schedule A Showing</button></a>
         
         <div class="mob-menu-toggle" onclick="toggleMenu(menuStatus)">
             <img src="menutoggle.png" width="100%" height="100%">
@@ -814,8 +869,8 @@
             <a><div class="">Home</div></a>
             <a href="listings.html"><div class="">Listings</div></a>
             <a href="reviews.html"><div class="">Reviews</div></a>
-            <a><div class="">Contact</div></a>
-            <a><div class="">Schedule a Showing</div></a>
+            <a href="contact.html"><div class="">Contact</div></a>
+            <a href="contact.html"><div class="">Schedule a Showing</div></a>
         </div>
     </div>
 
@@ -836,7 +891,7 @@
         <p class="fltp">Find the perfect property for your dream lifestyle.</p>
 
         <div class="listings">
-            <div class="listing">
+            <div class="listing l1">
                 <div class="list-img">
                     <img src="house1.webp" width="100%" height="100%">
                 </div>
@@ -849,7 +904,7 @@
 
                 <button class="list-info-btn">More Info</button>
             </div>
-            <div class="listing">
+            <div class="listing l2">
                 <div class="list-img">
                     <img src="house2.webp" width="100%" height="100%">
                 </div>
@@ -862,7 +917,7 @@
 
                 <button class="list-info-btn">More Info</button>
             </div>
-            <div class="listing">
+            <div class="listing l3">
                 <div class="list-img">
                     <img src="house3.webp" width="100%" height="100%">
                 </div>
@@ -877,21 +932,21 @@
             </div>
         </div>
 
-        <button class="all-listings bt1">View All Listings</button>
+        <button class="all-listings al2 bt1" onclick="toListing()">View All Listings</button>
     </section>
 
     <section class="testimonials">
         <div class="test-grid">
-            <div class="test-intro">
+            <div class="test-intro ">
                 What Our Clients Say About Us.
             </div>
-            <div class="test1">
+            <div class="test1 tcon ">
                 <p class="test">
                     I buy and sell properties nearly as often as the seasons change. I thrive on variety and love navigating the real estate market. But I've never experienced a smoother transaction than when working with Elevate Realty. Their honesty and clarity assured me I was securing the best possible home and deal. I'll absolutely use their services again. I know I will when I'm ready for my next move.
                 </p>
                 <p class="test-name">Alicia Reynolds</p>
             </div>
-            <div class="test2">
+            <div class="test2 tcon ">
                 <p class="test">
                     I relied on Elevate Realty to sell my family's home—the one I grew up in. It was an emotional journey for me, but they made everything so seamless. They ensured we got a great price and a fair deal while preserving the memories tied to the home. They even found us a temporary rental that perfectly suited our needs while we planned our next steps. I can't thank them enough!
                 </p>
@@ -899,7 +954,7 @@
             </div>
         </div>
 
-        <button class="rev-btn bt1">More Reviews</button>
+        <button class="rev-btn bt1" onclick="toReviews()">More Reviews</button>
     </section>
 
     <section class="contact-sec">
@@ -910,7 +965,7 @@
                     At MB Real Estate, our top priority is delivering a VIP experience while helping you find your dream home. If you don’t see what you’re looking for in our listings or have a specific area in mind, connect with one of our real estate experts. We’re here to answer all your questions and guide you every step of the way!
                 </p>
             </div>
-            <button class="con-btn bt1"> Contact Us!</button>
+            <button class="con-btn bt1" onclick="toContact()"> Contact Us!</button>
         </div>
     </section>
 
@@ -966,6 +1021,20 @@
 
 
     <script>
+
+
+        function isButton(element) {
+            return element.tagName === 'BUTTON';
+        }
+
+        const header = document.querySelector('header');
+        header.addEventListener('resize', setHeaderHeight)
+        setHeaderHeight()
+        function setHeaderHeight() {
+            const headerHeight = header.offsetHeight;
+            document.documentElement.style.setProperty('--header-height', `${headerHeight}px`);
+        }
+
         window.scrollTo({ top: 0, behavior: 'smooth' }); 
         let menuStatus = false
 
@@ -985,6 +1054,103 @@
 
         initAnim()
 
+        const listings = document.querySelectorAll('.listing');
+        const listBtn = document.querySelector('.al2');
+
+        const listObserver = new IntersectionObserver(
+            entries => {
+                entries.forEach(entry => {
+                    
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('rdef');
+                        listObserver.unobserve(entry.target);
+                    }
+                });
+            },
+            {
+                threshold: 0.25
+            }
+        );
+
+        listings.forEach(listing => {
+            listObserver.observe(listing);
+        });
+
+        listObserver.observe(listBtn);
+        
+        
+        const tInt = document.querySelector('.test-intro')
+        const tests = document.querySelectorAll('.tcon')
+        const tBtn = document.querySelector('.rev-btn')
+        
+        const testObserver = new IntersectionObserver(
+            entries => {
+                entries.forEach(entry => {
+                    if(entry.isIntersecting){
+                        if(isButton(entry.target)){
+                        entry.target.classList.add('rdef')
+                        return;
+                        }
+                        entry.target.classList.add('tdef')
+                        testObserver.unobserve(entry.target)
+                    }
+                })
+            },{
+                threshold:.3
+            }
+        )
+
+        testObserver.observe(tInt)
+        testObserver.observe(tBtn)
+        tests.forEach(
+            test => {
+                testObserver.observe(test)
+            }
+        )
+
+
+        const conTl = document.querySelector('.con-ttl')
+        const conP = document.querySelector('.con-p')
+        const conBtn  = document.querySelector('.con-btn')
+        
+
+        const conObserver = new IntersectionObserver(
+            entries => {
+                entries.forEach(
+                    entry => {
+                       if(entry.isIntersecting){
+                        console.log(entry.target)
+                        entry.target.classList.add('tdef')
+                        conObserver.unobserve(entry.target)
+                       }
+                        
+                    }
+                )
+            },{
+                threshold:.15,
+                rootMargin:'-100px'
+            }
+        )
+
+        conObserver.observe(conTl)
+        conObserver.observe(conBtn)
+        conObserver.observe(conP)
+
+        function toContact(){
+            window.location.href = "contact.html"
+        }
+        function toListing(){
+            window.location.href = "listing.html"
+        }
+        function toReviews(){
+            window.location.href = "reviews.html"
+        }
+        
+
+        
+
+
+        
         function toggleMenu(phase){
             if(!phase){
                 menuIn()

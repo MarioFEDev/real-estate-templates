@@ -3,6 +3,7 @@
 
 
     --header-height:'';
+    --header-spc: '';
 }
 @keyframes menu-in{
     0%{
@@ -48,6 +49,10 @@
     font-family: 'Poppins-Light';
     src: url('Poppins/Poppins-Light.ttf') format('truetype');
 }
+@font-face {
+    font-family: 'Oswald-Bold';
+    src: url('oswald/Oswald-Bold.ttf') format('truetype');
+}
 
 *{
     padding: 0;
@@ -60,6 +65,7 @@ body,html{
     width: 100%;
     background-color: rgb(244, 244, 244);
     overflow-x: hidden;
+    height: 100%;
 }
 body{
     overflow-x: hidden;
@@ -168,6 +174,7 @@ header{
 .mob-menu-con{
     position: fixed;
     z-index: 30;
+    top: 0;
     width: 100%;
     height: 100vh;
     translate: 0%;
@@ -284,6 +291,9 @@ input[type="number"] {
     -moz-appearance: textfield;
 }
 
+.none{
+    display: none;
+}
 
 @media screen and (max-width: 1024px){
 }

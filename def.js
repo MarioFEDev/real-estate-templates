@@ -3,10 +3,17 @@ let menuStatus = false
 
 const header = document.querySelector('header');
 header.addEventListener('resize', setHeaderHeight)
+window.addEventListener('resize', setBodySpc)
 setHeaderHeight()
 function setHeaderHeight() {
     const headerHeight = header.offsetHeight;
     document.documentElement.style.setProperty('--header-height', `${headerHeight}px`);
+}
+
+function setBodySpc(){
+    const headerHeight = header.offsetHeight;
+    const windowHeight = window.offsetHeight;
+    console.log(windowHeight, headerHeight)
 }
 
 
@@ -58,3 +65,16 @@ function menuOut() {
             }
             }, { once: true });
         }
+
+
+
+
+function toContact(){
+    window.location.href = "contact.html"
+}
+function toListing(){
+    window.location.href = "listing.html"
+}
+function toReviews(){
+    window.location.href = "reviews.html"
+}
