@@ -1,6 +1,14 @@
 window.scrollTo({ top: 0, behavior: 'smooth' }); 
 let menuStatus = false
 
+const header = document.querySelector('header');
+header.addEventListener('resize', setHeaderHeight)
+setHeaderHeight()
+function setHeaderHeight() {
+    const headerHeight = header.offsetHeight;
+    document.documentElement.style.setProperty('--header-height', `${headerHeight}px`);
+}
+
 
 const menu = document.querySelector('.mob-menu-con')
 const x = document.querySelector('.close-img')

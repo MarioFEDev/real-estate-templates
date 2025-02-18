@@ -64,10 +64,26 @@
     </style>
 
     <style>
+        :root{
+            --base-brown:#A47A61;
+
+
+            --header-height:'';
+        }
+        @keyframes spin{
+            to{
+                transform: rotate(180deg);
+            }
+        }
+        @keyframes slide-up{
+            to{
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
         body{
-            padding-bottom: 300px;
-            padding-top: 200px;
             position: relative;
+            padding-top: var(--header-height);
         }
         .listing-search{
             padding: .5em;
@@ -91,6 +107,86 @@
             flex-direction: column;
             align-items: center;
             position: relative;
+            margin-top: 50px;
+        }
+        .filter-con{
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: right;
+            padding-left: 2%;
+            z-index: 10;
+            position: absolute;
+
+        }
+        .add-filter{
+            width: fit-content;
+            height: fit-content;
+            padding: .5em 1em;
+            border: 2px solid black;
+            border-radius: 7px;
+            background-color: #ccc;
+        }
+        .filters{
+            width: 50%;
+            min-width: 400px;
+            height: 400px;
+            background-color: rgb(235, 235, 235);
+            border-radius:10px;
+            box-shadow: 0 0 10px #474747;
+            padding: 2em;
+            overflow-y: scroll;
+        }
+        .filters input,
+        .filters select{
+            border: none;
+            outline: none;
+            height: 30px;
+            border-radius: 5px;
+            padding: .5em;
+            font-family: poppins-semibold;
+            font-size: 12pt;
+        }
+        .filters > div{
+            margin: 0 0 20px 0; 
+        }
+        .dash{
+            margin: 0 10px;
+            translate: 0 10px;
+        }
+        .loc-filter{
+            display: flex;
+            flex-direction: column;
+        }
+        #cities{
+            height: fit-content;
+        }
+
+        .fil-def{
+            display: flex;
+            align-items: center;
+        } 
+        .fil-def > div{
+            display: flex;
+            flex-direction: column;
+        }
+        .fil-def > div > input{
+            width: 120px;
+        }
+        .fil-btn-con{
+            width: 100%;
+            height: 50px;
+            position: sticky;
+            bottom: 0;
+            display: flex;
+            justify-content: right;
+        }
+        .fil-btn{
+            background-color:var(--base-brown);
+            color: white;
+            padding: .5em .8em;
+            border-radius: 9px;
+            font-size: 12pt;
         }
         .listing-grid{
             width: 97%;
@@ -104,6 +200,15 @@
         }
         .listing{
             width: 100%;
+            opacity: 0;
+            transform: translateY(90px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            background: linear-gradient(45deg, #ffffff, #f2f2f2, #e6e6e6, #d9d9d9, #cccccc);
+
+        }
+        .listing-in{
+            opacity: 1;
+            transform: translateY(0);
         }
         .list-img{
             width: 100%;
@@ -174,7 +279,7 @@
             padding: 1em 0;
         }
         .viewport{
-            height: 100%;
+            height: 90%;
             width: 90%;
             min-width: 500px;
             background-color: #F0EEE4;
@@ -211,7 +316,7 @@
         .viewport::-webkit-scrollbar{
             width: 5px;
         }
-        .viewport h1{
+        .g,.af{
             margin-bottom: 30px;
             font-size: 35pt;
         }
@@ -230,6 +335,7 @@
             aspect-ratio: 1/1;
             background-image: url(h1.jpg);
             background-size: cover;
+            background-color: red;
         }
         .vp-name{
             font-size: 35pt;
@@ -317,6 +423,8 @@
             translate: -50% 25px;
             display: block;
             font-size: 15pt;
+            text-align: center;
+            width: 100%;
         }
         .vp-add-det{
             width: 80%;
@@ -327,32 +435,10 @@
         .vp-add-det p::before{
             content:'✓ ';
         }
-        @media screen and (max-width: 768px){
-            .listing-grid{
-                grid-template-columns: repeat(2,1fr);
-            }
-        }
-
-
-
-        .none{
-            display: none;
-        }
-        hr{
-            width: 80%;
-            border: 1.5px solid black;
-            margin: 80px 0;
-            border-radius: 5px;
-            transition: all 1s linear;
-        }
-        hr:hover{
-            width: 95%;
-        }
-
-
         .vp-contact{
             width: 100%;
             height: fit-content;
+            padding-bottom: 1.5em;
             display: flex;
             color: white;
             position: relative;
@@ -373,6 +459,7 @@
         }
         .vp-contact-img{
             height: 400px;
+            aspect-ratio: 1/1;
             padding: 3em;
         }
         .vp-contact-txt{
@@ -402,90 +489,264 @@
             background-color: #adacac;
         }
 
-
-        .filter-con{
+        .intro{
             width: 100%;
+            min-height: 450px;
+            height: 100%;
+            background-image: url(listintroback.jpg);
+            background-position: center;
+            background-size: cover;
+            color: white;
+            position: relative;
+            z-index: 0;
             display: flex;
             flex-direction: column;
-            justify-content: right;
-            padding-left: 2%;
-            z-index: 10;
+            justify-content: center;
+            align-items: center;
+            gap: 2em;
+            opacity: 0;
+            transform: translateY(70px);
+            animation: slide-up 1s ease-out 1s forwards;
+            padding-bottom: 50px;
+        }  
+        .intro > *{
+            z-index: 2;
+            opacity: 0;
+            transform: translateY(70px);
+            animation: slide-up 1s ease-out 1.5s forwards;
+        }
+        .intro::after{
+            content: '';
             position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.763);
+            backdrop-filter: blur(0px);
+            z-index: -1;
+        }  
+        .rev-btn{
+            padding: .8em 1.5em;
+            font-size: 13pt;
+        }
+        .intro h1{
+            font-family: vollkorn-bold;
+            font-size: 65pt;
+            text-align: center;
+        }
+        .intro h2{
+            font-size: 15pt;
+            text-align: center;
+            width: 60%;
+        }  
 
-        }
-        .add-filter{
-            width: fit-content;
-            height: fit-content;
-            padding: .5em 1em;
-            border: 2px solid black;
-            border-radius: 7px;
-            background-color: #ccc;
-        }
-        .filters{
-            width: 50%;
-            min-width: 400px;
-            height: 400px;
-            background-color: rgb(235, 235, 235);
-            border-radius:10px;
-            box-shadow: 0 0 10px #474747;
-            padding: 2em;
-            overflow-y: scroll;
-        }
-        .filters input,
-        .filters select{
-            border: none;
-            outline: none;
-            height: 30px;
-            border-radius: 5px;
-            padding: .5em;
-            font-family: poppins-semibold;
-            font-size: 12pt;
-        }
-        .filters > div{
-            margin: 0 0 20px 0; 
-        }
-        .dash{
-            margin: 0 10px;
-            translate: 0 10px;
-        }
-        .loc-filter{
-            display: flex;
-            flex-direction: column;
-        }
-        #cities{
-            height: fit-content;
-        }
-
-        .fil-def{
+        .contact-sec{
+            margin-top: 50px ;
+            height: 350px;
+            min-height: fit-content;
+            background-image:url(consecback.jpg) ;
+            background-size: cover;
+            background-position: center;
             display: flex;
             align-items: center;
-        } 
-        .fil-def > div{
-            display: flex;
-            flex-direction: column;
+            position: relative;
+            color:white ;
         }
-        .fil-def > div > input{
-            width: 120px;
+        .contact-sec > *{
+            z-index: 10;
         }
-        .fil-btn-con{
+        .contact-sec::after{
+            content: '';
+            position: absolute;
             width: 100%;
-            height: 50px;
-            position: sticky;
-            bottom: 0;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.774);
+        }
+        .con-con{
+            width: 100%;
             display: flex;
-            justify-content: right;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid transparent;
         }
-        .fil-btn{
-            background-color:var(--base-brown);
-            color: white;
-            padding: .5em .8em;
-            border-radius: 9px;
+        .con-txt{
+            width: 60%;
+            height: fit-content;
+            display: flex;
+            flex-direction:column ;
+            justify-content: center;
+            margin-right: 50px;
+        }
+        .con-ttl{
+            font-size: 30pt;
+            translate: 0 -20px;
+        }
+        .con-p{
             font-size: 12pt;
+            font-family: poppins-regular;
         }
+        .con-btn{
+            padding: 1em 3em;
+            font-size: 14pt;
+        }
+       
+
+
+        .spin{
+            animation: spin 3s linear forwards;
+        }
+        .none{
+            display: none;
+        }
+        hr{
+            width: 80%;
+            border: 1.5px solid black;
+            margin: 80px 0;
+            border-radius: 5px;
+            transition: all 1s linear;
+        }
+        hr:hover{
+            width: 95%;
+        }
+        .filters::-webkit-scrollbar{
+            width: 5px;
+        }
+
+        @media screen and (max-width: 800px){
+            .vp-intro{
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                flex-direction: column;
+
+            }
+
+            .vp-intro-img{
+                width: 100%;
+            }
+            .vp-intro-info{
+                width: 100%;
+                padding-left:2em ;
+            }
+            .vt{
+                text-align: center;
+            }
+            .gallery-grid > div::after{
+                text-align: center;
+            }
+            
+        }  
+        
+        @media screen and (max-width: 777px){
+            .listing-grid{
+                grid-template-columns: repeat(2,1fr);
+            }
+            .intro h1{
+                font-size: 50pt;
+            }
+            .intro h2{
+                font-size: 15pt;
+                width: 80%;
+            } 
+
+        }  
+        
+        @media screen and (max-width: 725px){
+            .vp-contact{
+                flex-direction: column;
+                align-items: center;
+            }
+            .vp-contact-img{
+                height: 500px;
+            }
+            .gallery-grid{
+                grid-template-columns: 1fr;
+            }
+            .vt{
+                font-size: 25pt;
+            }
+            .vp-add-det{
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media screen and (max-width: 560px){
+            .listing-grid{
+                grid-template-columns: 1fr;
+            }
+
+            .intro h1{
+                font-size: 43pt;
+            }
+            .intro h2{
+                font-size: 13pt;
+                width: 90%;
+            } 
+        }
+
+        @media screen and (max-width: 530px){
+            .vp-intro-img{
+                aspect-ratio: 1/1;
+            }
+            .vp-intro-info{
+                padding-left: .5em;
+            }
+            .vp-contact h2{
+                font-size: 20pt;
+            }
+            .vp-contact-img{
+                height: 400px;
+                padding: 1em;
+            }
+            .af{
+                font-size: 25pt;
+            }
+            .viewport{
+                min-width: 300px;
+            }
+            .video-con{
+                width: 95%;
+            }
+            .vt{font-size: 20pt;}
+        }
+
+        @media screen and (max-width: 410px){
+            .vp-contact-img{
+                height: 300px;
+                padding: 0;
+                padding-top: 1em;
+            }
+            .vp-contact-txt{
+                padding-left: 20px;
+            }
+            .af{
+                text-align: center;
+                font-size: 23pt;
+            }
+            .vp-add-det{
+                grid-template-columns: 1fr;
+            }
+            .filters{
+                min-width: 300px;
+                overflow-x: hidden;
+            }
+            .intro h1{
+                font-size: 34pt;
+            }
+            .intro h2{
+                font-size: 10pt;
+                width: 85%;
+            } 
+        }
+   
+        
         
     </style>
 </head>
 <body>
+
+
     <header>
         <div class="logo-menu-con">
             <div class="logo-con">
@@ -499,29 +760,40 @@
                 <ul class="menu">
                     <a href="index.html"><li>Home</li></a>
                     <a><li>Listings</li></a>
-                    <a><li>Reviews</li></a>
+                    <a href="reviews.html"><li>Reviews</li></a>
                     <a><li>Contacts</li></a>
                 </ul>
             </div>
         </div>
-        <input type="text" class="listing-search" id="listing-search" placeholder="Search Listings (Locations, Building Types...) ">
+        <a><button class="schedule bt1">Schedule A Showing</button></a>
+        <input type="text" class="listing-search none" id="listing-search" placeholder="Search Listings (Locations, Building Types...) ">
         
         <div class="mob-menu-toggle" onclick="toggleMenu(menuStatus)">
             <img src="menutoggle.png" width="100%" height="100%">
         </div>
     </header>
 
+
+
     <div class="mob-menu-con">
         <div class="mob-menu">
             <div class="mob-menu-close" >
                 <div class="close-img" onclick="toggleMenu(menuStatus)"><img src="menuclose.png" width="100%" height="100%"></div>
             </div>
-            <a><div class="">Home</div></a>
+            <a href="index.html"><div class="">Home</div></a>
             <a><div class="">Listings</div></a>
-            <a><div class="">Reviews</div></a>
+            <a href="reviews.html"><div class="">Reviews</div></a>
             <a><div class="">Contact</div></a>
             <a><div class="">Schedule a Showing</div></a>
         </div>
+    </div>
+
+
+    <div class="intro">
+        <h1>Find Your Perfect Home</h1>
+        <h2>
+            Explore our latest listings and discover homes that match your lifestyle. From charming cottages to modern estates, your dream home awaits.
+        </h2>
     </div>
 
 
@@ -572,13 +844,39 @@
             </div>
 
             <hr>
-            <h1>Additional Features</h1>
+            <h1 class="af">Additional Features</h1>
             <div class="vp-add-det">
+                <p>Year Built: 2005</p>
+                <p>Lot Size: 10,000 SqFt</p>
+                <p>Garage: 2 spaces</p>
+                <p>Parking: Driveway</p>
+                <p>HOA Fees: $150/month</p>
+                <p>Property Type: Single-Family Home</p>
+                <p>Heating: Central</p>
+                <p>Cooling: Central Air</p>
+                <p>Fireplace: 1</p>
+                <p>Basement: Finished</p>
+                <p>Flooring: Hardwood</p>
+                <p>Roof: Asphalt Shingle</p>
+                <p>Exterior: Brick</p>
+                <p>Interior Features: Vaulted Ceilings</p>
+                <p>Appliances: Refrigerator, Dishwasher</p>
+                <p>Laundry: Main Floor</p>
+                <p>Patio/Deck: Deck</p>
+                <p>Fencing: Fully Fenced</p>
+                <p>Swimming Pool: 30x40</p>
+                <p>Pool: In-Ground</p>
+                <p>Spa/Hot Tub: Yes</p>
+                <p>Security: Alarm System</p>
+                <p>Views: City Skyline</p>
+                <p>Proximity to Amenities: 1 mile to park</p>
+                <p>Public Transportation: Nearby</p>
+                <p>School District: Dallas ISD</p>
             </div>
 
             <hr>
             <div class="vp-contact">
-                <div class="vp-contact-img"><img src="agt1.webp" alt="" height="100%" width="auto"></div>
+                <div class="vp-contact-img"><img src="agt1.webp" alt="" height="100%" width="100%"></div>
                 <div class="vp-contact-txt">
                     <h2>Questions About This Property?</h2>
                     <h1>David Barnes - Licensed Agent</h1>
@@ -592,10 +890,10 @@
     </div>
 
 
-    <section class="listing-sec">
+    <section class="listing-sec ">
 
         <div class="filter-con ">
-            <button class="add-filter" onclick="toggleFilters(); console.log(1)">Add Filters ▼</button>
+            <button class="add-filter" onclick="toggleFilters(); console.log(1)">Add Filters <em class="filt-arrow">▼</em> </button>
             <div class="filters none">
                 <div class="price-range-filter">
                     <h3>Price Range ($)</h3>
@@ -635,20 +933,6 @@
                     <select id="cities" name="cities">
                         <option value="" style="display: none;">Select a City</option>
                         <option value="">None</option>
-                        <option value="Dallas">Dallas, Texas</option>
-                        <option value="Portland">Portland, Oregon</option>
-                        <option value="Austin">Austin, Texas</option>
-                        <option value="San Diego">San Diego, California</option>
-                        <option value="Denver">Denver, Colorado</option>
-                        <option value="Miami">Miami, Florida</option>
-                        <option value="Phoenix">Phoenix, Arizona</option>
-                        <option value="Seattle">Seattle, Washington</option>
-                        <option value="Chicago">Chicago, Illinois</option>
-                        <option value="Nashville">Nashville, Tennessee</option>
-                        <option value="Boston">Boston, Massachusetts</option>
-                        <option value="Charlotte">Charlotte, North Carolina</option>
-                        <option value="Atlanta">Atlanta, Georgia</option>
-                        <option value="Philadelphia">Philadelphia, Pennsylvania</option>
                     </select>
                     <input type="text" id="loc-fil" class="none">
                 </div>
@@ -879,7 +1163,7 @@
                 <p class="list-info">
                     <em class="bed">4</em> | 
                     <em class="bath">3</em> | 
-                    <em class="size">2,100</em> sqft
+                    <em class="size">2,100</em> 
                 </p>
                 <button class="view-prop">View Property</button>
 
@@ -937,7 +1221,7 @@
                 <p class="list-info">
                     <em class="bed">3</em> | 
                     <em class="bath">2</em> | 
-                    <em class="size">1,800</em> sqft
+                    <em class="size">1,800</em> 
                 </p>
                 <button class="view-prop">View Property</button>
 
@@ -997,7 +1281,7 @@
                 <p class="list-info">
                     <em class="bed">5</em> | 
                     <em class="bath">4</em> | 
-                    <em class="size">2,500</em> sqft
+                    <em class="size">2,500</em> 
                 </p>
                 <button class="view-prop">View Property</button>
 
@@ -1055,7 +1339,7 @@
                 <p class="list-info">
                     <em class="bed">6</em> | 
                     <em class="bath">5</em> | 
-                    <em class="size">3,200</em> sqft
+                    <em class="size">3,200</em> 
                 </p>
                 <button class="view-prop">View Property</button>
 
@@ -1113,7 +1397,7 @@
                 <p class="list-info">
                     <em class="bed">4</em> | 
                     <em class="bath">3</em> | 
-                    <em class="size">2,000</em> sqft
+                    <em class="size">2,000</em> 
                 </p>
                 <button class="view-prop">View Property</button>
 
@@ -1171,7 +1455,7 @@
                 <p class="list-info">
                     <em class="bed">3</em> | 
                     <em class="bath">2</em> | 
-                    <em class="size">1,750</em> sqft
+                    <em class="size">1,750</em> 
                 </p>
                 <button class="view-prop">View Property</button>
 
@@ -1229,7 +1513,7 @@
                 <p class="list-info">
                     <em class="bed">5</em> | 
                     <em class="bath">4</em> | 
-                    <em class="size">2,700</em> sqft
+                    <em class="size">2,700</em> 
                 </p>
                 <button class="view-prop">View Property</button>
 
@@ -1280,7 +1564,7 @@
                 <p class="list-info">
                     <em class="bed">4</em> | 
                     <em class="bath">3</em> | 
-                    <em class="size">2,200</em> sqft
+                    <em class="size">2,200</em> 
                 </p>
                 <button class="view-prop">View Property</button>
 
@@ -1338,7 +1622,7 @@
                 <p class="list-info">
                     <em class="bed">3</em> | 
                     <em class="bath">2</em> | 
-                    <em class="size">1,900</em> sqft
+                    <em class="size">1,900</em> 
                 </p>
                 <button class="view-prop">View Property</button>
 
@@ -1397,7 +1681,7 @@
                 <p class="list-info">
                     <em class="bed">5</em> | 
                     <em class="bath">4</em> | 
-                    <em class="size">2,800</em> sqft
+                    <em class="size">2,800</em> 
                 </p>
                 <button class="view-prop">View Property</button>
 
@@ -1455,7 +1739,7 @@
                 <p class="list-info">
                     <em class="bed">4</em> | 
                     <em class="bath">3</em> | 
-                    <em class="size">2,400</em> sqft
+                    <em class="size">2,400</em> 
                 </p>
                 <button class="view-prop">View Property</button>
 
@@ -1515,7 +1799,7 @@
                 <p class="list-info">
                     <em class="bed">4</em> | 
                     <em class="bath">3</em> | 
-                    <em class="size">2,100</em> sqft
+                    <em class="size">2,100</em> 
                 </p>
                 <button class="view-prop">View Property</button>
 
@@ -1573,7 +1857,7 @@
                 <p class="list-info">
                     <em class="bed">5</em> | 
                     <em class="bath">4</em> | 
-                    <em class="size">2,500</em> sqft
+                    <em class="size">2,500</em> 
                 </p>
                 <button class="view-prop">View Property</button>
 
@@ -1633,7 +1917,7 @@
                 <p class="list-info">
                     <em class="bed">3</em> | 
                     <em class="bath">2</em> | 
-                    <em class="size">1,900</em> sqft
+                    <em class="size">1,900</em> 
                 </p>
                 <button class="view-prop">View Property</button>
 
@@ -1688,80 +1972,186 @@
 
     </section>
 
+    <section class="contact-sec">
+        <div class="con-con">
+            <div class="con-txt">
+                <h1 class="con-ttl">Ask An Agent!</h1>
+                <p class="con-p">
+                    At MB Real Estate, our top priority is delivering a VIP experience while helping you find your dream home. If you don’t see what you’re looking for in our listings or have a specific area in mind, connect with one of our real estate experts. We’re here to answer all your questions and guide you every step of the way!
+                </p>
+            </div>
+            <button class="con-btn bt1"> Contact Us!</button>
+        </div>
+    </section>
 
-    <!-- <script src="def.js"></script> -->
+    <footer>
+        <div class="foot-grid">
+            <div class="foot-sec">
+                <div class="foot-ttl">Buyer Resources </div>
+                <div class="foot-links">
+                    <a class="foot-link">Find Your Dream Home</a>
+                    <a class="foot-link">Home Valuation Tool</a>
+                    <a class="foot-link">Expert Buying Tips</a>
+                    <a class="foot-link">Browse Listings</a>
+                </div>
+            </div>
+
+            <div class="foot-sec">
+                <div class="foot-ttl">Seller Resources </div>
+                <div class="foot-links">
+                    <a class="foot-link">Maximize Your Home’s Value</a>
+                    <a class="foot-link">Selling Made Simple Guide</a>
+                    <a class="foot-link">Mortgage & Market Insights</a>
+                    <a class="foot-link">Our Commitment to You</a>
+                </div>
+            </div>
+
+            <div class="foot-sec">
+                <div class="foot-ttl">Company</div>
+                <div class="foot-links">
+                    <a class="foot-link">Who We Are?</a>
+                    <a class="foot-link">Get in Touch</a>
+                    <a class="foot-link">Partnerships & Certifications</a>
+                    <a class="foot-link">Success Stories & Testimonials</a>
+                </div>
+            </div>
+
+            <div class="foot-sec">
+                <div class="foot-ttl">MB Real Estate </div>
+                <div class="foot-links">
+                    <a class="foot-link">📍 79 E. 14th Avenue, City, State, Zip</a>
+                    <a class="foot-link">📞 (561) 555-8954</a>
+                    <a class="foot-link">📠 (561) 555-8172</a>
+                    <a class="foot-link">info@MBRealtors.com</a>
+                </div>
+            </div>
+
+        </div>
+
+        <p class="dis">©2025 MB Real Estate. All rights reserved.</p>
+    </footer>
+
+
+
+    <script src="def.js"></script> 
     <script>
+
+        
+
+
+        // filter wahala 😭😭😭
         document.addEventListener('DOMContentLoaded', () => {
-            const citySelect = document.getElementById('cities');
-            const locFilInput = document.getElementById('loc-fil');
-    
-            const priceMinInput = document.getElementById('price-min');
-            const priceMaxInput = document.getElementById('price-max');
-            const sizeMinInput = document.getElementById('size-min');
-            const sizeMaxInput = document.getElementById('size-max');
-            const bedMinInput = document.getElementById('bed-min');
-            const bedMaxInput = document.getElementById('bed-max');
-            const bathMinInput = document.getElementById('bath-min');
-            const bathMaxInput = document.getElementById('bath-max');
-    
-            const filterButton = document.querySelector('.fil-btn');
-            const filters = [citySelect, priceMinInput, priceMaxInput, sizeMinInput, sizeMaxInput, bedMinInput, bedMaxInput, bathMinInput, bathMaxInput];
-    
-            filters.forEach(filter => {
-                filter.addEventListener('change', updateFilterCount);
-            });
-    
-            filterButton.addEventListener('click', applyFilters);
-    
-            function updateFilterCount() {
-                let filterCount = 0;
-    
-                if (citySelect.value) filterCount++;
-                if (priceMinInput.value || priceMaxInput.value) filterCount++;
-                if (sizeMinInput.value || sizeMaxInput.value) filterCount++;
-                if (bedMinInput.value || bedMaxInput.value) filterCount++;
-                if (bathMinInput.value || bathMaxInput.value) filterCount++;
-    
-                filterButton.textContent = `Add Filters (${filterCount})`;
+        const citySelect = document.getElementById('cities');
+        const locFilInput = document.getElementById('loc-fil');
+
+        const priceMinInput = document.getElementById('price-min');
+        const priceMaxInput = document.getElementById('price-max');
+        const sizeMinInput = document.getElementById('size-min');
+        const sizeMaxInput = document.getElementById('size-max');
+        const bedMinInput = document.getElementById('bed-min');
+        const bedMaxInput = document.getElementById('bed-max');
+        const bathMinInput = document.getElementById('bath-min');
+        const bathMaxInput = document.getElementById('bath-max');
+
+        const filterButton = document.querySelector('.fil-btn');
+        const filters = [citySelect, priceMinInput, priceMaxInput, sizeMinInput, sizeMaxInput, bedMinInput, bedMaxInput, bathMinInput, bathMaxInput];
+
+
+        let cityArray = []
+        document.querySelectorAll('.listing').forEach(listing => {
+            cityListUpdate(listing)
+        })
+        
+        function cityListUpdate(listing){
+            let city = listing.querySelector(".city").innerText
+            let state = listing.querySelector(".state").innerText
+            let option = `<option value="${city}">${city}, ${state}</option>`
+            if(!cityArray.includes(option)){
+                cityArray.push(option)
+                document.getElementById('cities').innerHTML += option
             }
-    
-            function applyFilters() {
-                const city = citySelect.value;
-                const priceMin = parseFloat(priceMinInput.value) || 0;
-                const priceMax = parseFloat(priceMaxInput.value) || Infinity;
-                const sizeMin = parseFloat(sizeMinInput.value) || 0;
-                const sizeMax = parseFloat(sizeMaxInput.value) || Infinity;
-                const bedMin = parseFloat(bedMinInput.value) || 0;
-                const bedMax = parseFloat(bedMaxInput.value) || Infinity;
-                const bathMin = parseFloat(bathMinInput.value) || 0;
-                const bathMax = parseFloat(bathMaxInput.value) || Infinity;
-    
-                document.querySelectorAll('.listing').forEach(listing => {
-                    const listingCity = listing.querySelector('.city').textContent;
-                    const listingPrice = parseFloat(listing.querySelector('.price').textContent.replace(/,/g, ''));
-                    const listingSize = parseFloat(listing.querySelector('.size').textContent.replace(/,/g, ''));
-                    const listingBeds = parseFloat(listing.querySelector('.bed').textContent);
-                    const listingBaths = parseFloat(listing.querySelector('.bath').textContent);
-    
-                    const matchesCity = !city || listingCity === city;
-                    const matchesPrice = listingPrice >= priceMin && listingPrice <= priceMax;
-                    const matchesSize = listingSize >= sizeMin && listingSize <= sizeMax;
-                    const matchesBeds = listingBeds >= bedMin && listingBeds <= bedMax;
-                    const matchesBaths = listingBaths >= bathMin && listingBaths <= bathMax;
-    
-                    if (matchesCity && matchesPrice && matchesSize && matchesBeds && matchesBaths) {
-                        listing.classList.remove('none');
-                    } else {
-                        listing.classList.add('none');
-                    }
-                });
-            }
-    
-            citySelect.addEventListener('change', () => {
-                locFilInput.value = citySelect.options[citySelect.selectedIndex].text;
-            });
+        }
+
+        filters.forEach(filter => {
+            filter.addEventListener('change', updateFilterCount);
         });
-    
+
+        filterButton.addEventListener('click', applyFilters);
+
+        function updateFilterCount() {
+            let filterCount = 0;
+
+            if (citySelect.value) filterCount++;
+            if (priceMinInput.value || priceMaxInput.value) filterCount++;
+            if (sizeMinInput.value || sizeMaxInput.value) filterCount++;
+            if (bedMinInput.value || bedMaxInput.value) filterCount++;
+            if (bathMinInput.value || bathMaxInput.value) filterCount++;
+
+            filterButton.textContent = `Add Filters (${filterCount})`;
+        }
+
+        function applyFilters() {
+
+            //setting the f'ing defaults
+            const city = citySelect.value;
+            const priceMin = parseFloat(priceMinInput.value) || 0;
+            const priceMax = parseFloat(priceMaxInput.value) || Infinity;
+            const sizeMin = parseFloat(sizeMinInput.value) || 0;
+            const sizeMax = parseFloat(sizeMaxInput.value) || Infinity;
+            const bedMin = parseFloat(bedMinInput.value) || 0;
+            const bedMax = parseFloat(bedMaxInput.value) || Infinity;
+            const bathMin = parseFloat(bathMinInput.value) || 0;
+            const bathMax = parseFloat(bathMaxInput.value) || Infinity;
+
+        document.querySelectorAll('.listing').forEach(listing => {
+
+                // processing the processables
+                const listingCity = listing.querySelector('.city').textContent;
+                const listingPrice = parseFloat(listing.querySelector('.price').textContent.replace(/,/g, ''));
+                const listingSize = parseFloat(listing.querySelector('.size').textContent.replace(/,/g, ''));
+                const listingBeds = parseFloat(listing.querySelector('.bed').textContent);
+                const listingBaths = parseFloat(listing.querySelector('.bath').textContent);
+
+                const matchesCity = !city || listingCity === city;
+                const matchesPrice = listingPrice >= priceMin && listingPrice <= priceMax;
+                const matchesSize = listingSize >= sizeMin && listingSize <= sizeMax;
+                const matchesBeds = listingBeds >= bedMin && listingBeds <= bedMax;
+                const matchesBaths = listingBaths >= bathMin && listingBaths <= bathMax;
+
+                if (matchesCity && matchesPrice && matchesSize && matchesBeds && matchesBaths) {
+                    listing.classList.remove('none');
+                } else {
+                    listing.classList.add('none');
+                }
+            });
+        }
+
+        citySelect.addEventListener('change', () => {
+            locFilInput.value = citySelect.options[citySelect.selectedIndex].text;
+        });
+        });
+
+        const listings = document.querySelectorAll('.listing')
+        const listingObsrever = new IntersectionObserver(entries => {
+            entries.forEach(
+                entry => {
+                    if(entry.isIntersecting){
+                        entry.target.classList.add("listing-in")
+                    }else{
+                        entry.target.classList.remove("listing-in")
+                    }
+                }
+            )
+            } , { threshold:0, rootMargin: "3000px 0px 0px 0px" }
+        )
+
+        listings.forEach(listing => {
+            listingObsrever.observe(listing)
+        })
+
+
+        
+
         const vpName = document.querySelector('.vp-name');
         const vpImg = document.querySelector('.vp-intro-img');
         const vpCity = document.querySelector('.vp-city');
@@ -1780,18 +2170,21 @@
         const addFilter = document.querySelector('.add-filter');
         const filters = document.querySelector('.filters');
         const filButton = document.querySelector('.fil-btn');
-        
-        let filtersState = false
-        function toggleFilters(){
-            if(!filtersState){
-                filters.classList.remove('none')
-                filtersState = true
-            }else{
-                filters.classList.add('none')
-                filtersState = false
+        const filtArrow = document.querySelector('.filt-arrow');
+
+        let filtersState = false;
+        function toggleFilters() {
+            if (!filtersState) {
+                filters.classList.remove('none');
+                filtArrow.classList.add('spin');
+                filtersState = true;
+            } else {
+                filters.classList.add('none');
+                filtArrow.classList.remove('spin');
+                filtersState = false;
             }
         }
-    
+
         function viewProperty(button) {
             const listing = button.closest('.listing');
             const name = listing.querySelector('.list-name').textContent;
@@ -1808,7 +2201,7 @@
             const bedroomImg = listing.querySelector('.bed-img img').src;
             const kitchenImg = listing.querySelector('.kit-img img').src;
             const diningImg = listing.querySelector('.din-img img').src;
-    
+
             vpName.textContent = name;
             vpImg.style.backgroundImage = `url(${imgSrc})`;
             vpCity.textContent = city;
@@ -1823,26 +2216,27 @@
             vpBedroom.src = bedroomImg;
             vpKitchen.src = kitchenImg;
             vpDining.src = diningImg;
-    
+
             viewportCon.classList.remove('none');
         }
-    
-        function removeViewport(){
-            viewportCon.classList.add('none')
+
+        function removeViewport() {
+            viewportCon.classList.add('none');
         }
-    
+
         function deComma(value) {
             let cleanedValue = value.replace(/,/g, '');
             return cleanedValue;
         }
-        
+
         function addComma(value) {
             return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         }
-     
+
         document.querySelectorAll('.view-prop').forEach(button => {
             button.addEventListener('click', () => viewProperty(button));
         });
+                
     </script>
 
      

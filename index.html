@@ -134,6 +134,12 @@
                 opacity: 1;
             }
         }
+        @keyframes menu-items{
+            to{
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
         *{
             padding: 0;
@@ -222,6 +228,21 @@
             position: relative;
             cursor: pointer;
             box-sizing: content-box;
+            transform: translateY(40px);
+            opacity: 0;
+            animation: menu-items .7s linear forwards;
+        }
+        .menu a:nth-child(1) li{
+            animation-delay:2.3s ;
+        }
+        .menu a:nth-child(2) li{
+            animation-delay:2.6s ;
+        }
+        .menu a:nth-child(3) li{
+            animation-delay:2.9s ;
+        }
+        .menu a:nth-child(4) li{
+            animation-delay:3.1s ;
         }
         .menu a li::after{
             position: absolute;
@@ -772,8 +793,8 @@
             <div class="menu-con">
                 <ul class="menu">
                     <a><li>Home</li></a>
-                    <a href="listings.html"><li>Listings</li></a>
-                    <a><li>Reviews</li></a>
+                    <a href="listings.html"><li >Listings</li></a>
+                    <a href="reviews.html"><li>Reviews</li></a>
                     <a><li>Contacts</li></a>
                 </ul>
             </div>
@@ -792,7 +813,7 @@
             </div>
             <a><div class="">Home</div></a>
             <a href="listings.html"><div class="">Listings</div></a>
-            <a><div class="">Reviews</div></a>
+            <a href="reviews.html"><div class="">Reviews</div></a>
             <a><div class="">Contact</div></a>
             <a><div class="">Schedule a Showing</div></a>
         </div>
@@ -878,7 +899,7 @@
             </div>
         </div>
 
-        <button class="rev-btn bt1">See all Reviews</button>
+        <button class="rev-btn bt1">More Reviews</button>
     </section>
 
     <section class="contact-sec">

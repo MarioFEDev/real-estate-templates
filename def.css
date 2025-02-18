@@ -44,6 +44,10 @@
     }
 }
 
+@font-face {
+    font-family: 'Poppins-Light';
+    src: url('Poppins/Poppins-Light.ttf') format('truetype');
+}
 
 *{
     padding: 0;
@@ -189,6 +193,7 @@ header{
 .mob-menu a{
     display: flex;
     justify-content: center;
+    color: white;
 }
 .mob-menu a > div,
 .mob-menu-close{
@@ -234,6 +239,41 @@ header{
     left: 0;
 }
 
+footer{
+    width: 100%;
+    margin-top: 100px;
+    height: fit-content;
+    border: 2px solid transparent;
+    padding-top: 30px;
+    padding: 50px 2em 30px 2em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #F8F8FF;
+}
+.foot-grid{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    margin-bottom: 50px;
+}
+.foot-ttl{
+    font-size: 20pt;
+    margin-bottom: 30px;
+    font-family: poppins-semibold;
+}
+.foot-links{
+    display: flex;
+    flex-direction: column;
+}
+.foot-link{
+    margin: .3em 0;
+    font-family: poppins-regular;
+}
+.dis{
+    font-family: poppins-light; 
+}
+
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
     -webkit-appearance: none;
@@ -248,6 +288,12 @@ input[type="number"] {
 @media screen and (max-width: 1024px){
 }
 @media screen and (max-width: 930px){
+    .foot-grid{
+        grid-template-columns: repeat(2,1fr);
+    }
+    .foot-sec{
+        margin-top: 30px;
+    }
 }
 @media screen and (max-width: 768px){
     header{
@@ -273,6 +319,18 @@ input[type="number"] {
 @media screen and (max-width: 695px){
 }
 @media screen and (max-width: 520px){
+    .foot-grid{
+        grid-template-columns: 1fr;
+    }
+    .foot-sec > div{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+    }
+    .dis{
+        font-size: 9pt;
+    }
 }
 @media screen and (max-width: 430px){
     header{
